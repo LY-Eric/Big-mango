@@ -1,0 +1,11 @@
+<button bindtap='chooseImg'>上传图片</button>
+<view class="schoollist">
+  <block wx:for="{{pictures}}" wx:key="item">
+    <view class="school-list">
+      <view class="school-list-info" index="{{index}}">
+          <image class="school-list-photo" src="{{item}}"   bindtap="previewImage" mode='aspectFit'/>
+          <text class="school-list-desc">文本</text>
+        </view>
+    </view>
+  </block>
+</view>

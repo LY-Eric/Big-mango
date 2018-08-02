@@ -1,0 +1,18 @@
+<view class="container">
+    <view class="line-shadow"></view>
+    <view class="panel">
+        <image src="{{userInfo.avatarUrl}}" class="photo"></image>
+        <view class="nickname">{{userInfo.nickName}}</view> 
+        <view class='nickname'>{{identity}}</view>
+        
+        <view wx:if="{{signFlag}}">
+          <button bindtap="sign"> 签到 </button>
+        </view>
+        <view wx:if="{{!signFlag}}">
+          <button type='primary'> 已签到 </button>
+        </view>
+        
+    </view>
+    
+</view>
+
