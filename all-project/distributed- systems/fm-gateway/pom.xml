@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+		<artifactId>finmall</artifactId>
+		<groupId>com.ynet.finmall</groupId>
+		<version>1.0-SNAPSHOT</version>
+		<relativePath>../../fm-platform</relativePath>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>fm-gateway</artifactId>
+	<packaging>war</packaging>
+
+	<properties>
+		<hibernate.validator-version>5.0.2.Final</hibernate.validator-version>
+	</properties>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>com.ynet.finmall</groupId>
+			<artifactId>fm-exception</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.ynet.finmall</groupId>
+			<artifactId>fm-core</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>${hibernate.validator-version}</version>
+		</dependency>
+		<!-- oss上传文件 -->
+		<dependency>
+			<groupId>com.aliyun.oss</groupId>
+			<artifactId>aliyun-sdk-oss</artifactId>
+			<version>2.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.aliyun</groupId>
+			<artifactId>aliyun-java-sdk-core</artifactId>
+			<version>3.2.8</version>
+		</dependency>
+		<!--阿里云提供的专供finmall使用的jar-->
+		<dependency>
+			<groupId>com.aliyun</groupId>
+			<artifactId>aliyun-java-sdk-finmall</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+	</dependencies>
+</project>

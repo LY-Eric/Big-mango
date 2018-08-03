@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ynet.finmall.workflow.dao.EsWorkflowDao" >
+  <resultMap id="BaseResultMap" type="com.ynet.finmall.workflow.model.EsWorkflow" >
+    <id column="workflow_id" property="workflowId" jdbcType="VARCHAR" />
+    <result column="workflow_type" property="workflowType" jdbcType="VARCHAR" />
+    <result column="workflow_name" property="workflowName" jdbcType="VARCHAR" />
+    <result column="is_common" property="isCommon" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="admin_id" property="adminId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    <if test="fields == null" >
+      workflow_id, workflow_type, workflow_name, is_common, remark, status, create_time, 
+      update_time, admin_id
+    </if>
+    <if test="fields != null" >
+      ${fields}
+    </if>
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ynet.finmall.workflow.model.EsWorkflowQuery" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from es_workflow
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="startRow != null" >
+      limit #{startRow} , #{pageSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    workflow_id,workflow_type,workflow_name,is_common,remark,status,create_time,update_time,admin_id
+    from es_workflow
+    where workflow_id = #{workflowId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from es_workflow
+    where workflow_id = #{workflowId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ynet.finmall.workflow.model.EsWorkflowQuery" >
+    delete from es_workflow
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ynet.finmall.workflow.model.EsWorkflow" >
+    insert into es_workflow (workflow_id, workflow_type, workflow_name, 
+      is_common, remark, status, 
+      create_time, update_time, admin_id
+      )
+    values (#{workflowId,jdbcType=VARCHAR}, #{workflowType,jdbcType=VARCHAR}, #{workflowName,jdbcType=VARCHAR}, 
+      #{isCommon,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{adminId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ynet.finmall.workflow.model.EsWorkflow" >
+    insert into es_workflow
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="workflowId != null" >
+        workflow_id,
+      </if>
+      <if test="workflowType != null" >
+        workflow_type,
+      </if>
+      <if test="workflowName != null" >
+        workflow_name,
+      </if>
+      <if test="isCommon != null" >
+        is_common,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="adminId != null" >
+        admin_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="workflowId != null" >
+        #{workflowId,jdbcType=VARCHAR},
+      </if>
+      <if test="workflowType != null" >
+        #{workflowType,jdbcType=VARCHAR},
+      </if>
+      <if test="workflowName != null" >
+        #{workflowName,jdbcType=VARCHAR},
+      </if>
+      <if test="isCommon != null" >
+        #{isCommon,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adminId != null" >
+        #{adminId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ynet.finmall.workflow.model.EsWorkflowQuery" resultType="java.lang.Integer" >
+    select count(*) from es_workflow
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update es_workflow
+    <set >
+      <if test="record.workflowId != null" >
+        workflow_id = #{record.workflowId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workflowType != null" >
+        workflow_type = #{record.workflowType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workflowName != null" >
+        workflow_name = #{record.workflowName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isCommon != null" >
+        is_common = #{record.isCommon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.adminId != null" >
+        admin_id = #{record.adminId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update es_workflow
+    set workflow_id = #{record.workflowId,jdbcType=VARCHAR},
+      workflow_type = #{record.workflowType,jdbcType=VARCHAR},
+      workflow_name = #{record.workflowName,jdbcType=VARCHAR},
+      is_common = #{record.isCommon,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      admin_id = #{record.adminId,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ynet.finmall.workflow.model.EsWorkflow" >
+    update es_workflow
+    <set >
+      <if test="workflowType != null" >
+        workflow_type = #{workflowType,jdbcType=VARCHAR},
+      </if>
+      <if test="workflowName != null" >
+        workflow_name = #{workflowName,jdbcType=VARCHAR},
+      </if>
+      <if test="isCommon != null" >
+        is_common = #{isCommon,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="adminId != null" >
+        admin_id = #{adminId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where workflow_id = #{workflowId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ynet.finmall.workflow.model.EsWorkflow" >
+    update es_workflow
+    set workflow_type = #{workflowType,jdbcType=VARCHAR},
+      workflow_name = #{workflowName,jdbcType=VARCHAR},
+      is_common = #{isCommon,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      admin_id = #{adminId,jdbcType=VARCHAR}
+    where workflow_id = #{workflowId,jdbcType=VARCHAR}
+  </update>
+</mapper>
