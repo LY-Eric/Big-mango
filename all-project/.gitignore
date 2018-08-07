@@ -59,6 +59,8 @@ fabric.properties
 */out/
 *.iml
 
+*/node_modules/
+
 .metadata
 bin/
 tmp/
