@@ -1,0 +1,2 @@
+# spring整合rabbitmq的生产和消费
+spring整合rabbitmq的生产和消费

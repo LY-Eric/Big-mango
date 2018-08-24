@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:p="http://www.springframework.org/schema/p"
+	   xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+	   default-autowire="byName">
+
+
+	<!-- redis 连接工厂 -->
+	<bean id="redisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+		  p:port="6379" p:host-name="39.105.132.87" p:password="" />
+	<!-- 用来格式化 KV  的 类 -->
+	<bean id="stringSer" class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+	<bean id="jdkSer" class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" />
+	<!-- Spring操作redis的模板类 -->
+	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate" p:connectionFactory-ref="redisConnectionFactory">
+		<property name="keySerializer" ref="stringSer" />
+		<property name="valueSerializer" ref="jdkSer" />
+	</bean>
+	<!-- 将监听者类 放入Spring容器 -->
+	<bean id="messageListener" class="org.springframework.data.redis.listener.adapter.MessageListenerAdapter">
+		<constructor-arg>
+			<bean class="com.redis.demo.TopicMessageListener"/>
+		</constructor-arg>
+	</bean>
+	<bean id="redisContainer" class="org.springframework.data.redis.listener.RedisMessageListenerContainer">
+		<property name="connectionFactory" ref="redisConnectionFactory"/>
+		<property name="messageListeners">
+			<map>
+				<entry key-ref="messageListener">
+					<bean class="org.springframework.data.redis.listener.ChannelTopic">
+						<constructor-arg value="__keyevent@0__:expired"/>
+					</bean>
+				</entry>
+			</map>
+		</property>
+	</bean>
+</beans>
